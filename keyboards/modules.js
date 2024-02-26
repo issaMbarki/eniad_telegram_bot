@@ -35,62 +35,62 @@ const s2_modules = [
         { text: "go back", callback_data: 'back' }
     ]
 ];
-const s3_modules = [
-    [
-        { text: 'Atelier programmation avancée', callback_data: 'programmation_avnc' },
-        { text: 'Développement avancée d’application ', callback_data: 'dev_avnc' },
-    ],
-    [
-        { text: "Gestion de projet informatique", callback_data: 'gestion' },
-        { text: "Développement d’application mobile", callback_data: 'dev_mobile' }
-    ],
-    [
-        { text: "Apprentissage automatique", callback_data: 'apprentissage_auto' },
-        { text: "Création d'entreprises", callback_data: 'entreprise' }
-    ],
-    [
-        { text: "go back", callback_data: 'back' }
-    ]
-];
-const s4_modules = [
-    [
-        { text: 'Administration réseaux et scripting', callback_data: 'scripting' },
-        { text: 'Business intelligence et ERP', callback_data: 'erp' },
-    ],
-    [
-        { text: "Atelier des activités pratiques et projets", callback_data: 'activites_pratique' },
-        { text: "Apprentissage profond", callback_data: 'apr_profond' }
-    ],
-    [
-        { text: "Management et marketing", callback_data: 'marketing' },
-        { text: "Communication", callback_data: 'communication' }
-    ],
-    [
-        { text: "go back", callback_data: 'back' }
-    ]
-];
-const s5_modules = [
-    [
-        { text: 'Big data et NoSQL', callback_data: 'nosql' },
-        { text: 'Atelier usine logiciel', callback_data: 'usine' },
-    ],
-    [
-        { text: "Systèmes d’information moderne", callback_data: 'sys_moderne' },
-        { text: "Ingénierie logiciel avancée", callback_data: 'gl_avnc' }
-    ],
-    [
-        { text: "Interconnexion réseaux et sécurité informatique", callback_data: 'securite' },
-        { text: "Éthique appliquée et éthique de l'IA", callback_data: 'ia' }
-    ],
-    [
-        { text: "go back", callback_data: 'back' }
-    ]
-];
+// const s3_modules = [
+//     [
+//         { text: 'Atelier programmation avancée', callback_data: 'programmation_avnc' },
+//         { text: 'Développement avancée d’application ', callback_data: 'dev_avnc' },
+//     ],
+//     [
+//         { text: "Gestion de projet informatique", callback_data: 'gestion' },
+//         { text: "Développement d’application mobile", callback_data: 'dev_mobile' }
+//     ],
+//     [
+//         { text: "Apprentissage automatique", callback_data: 'apprentissage_auto' },
+//         { text: "Création d'entreprises", callback_data: 'entreprise' }
+//     ],
+//     [
+//         { text: "go back", callback_data: 'back' }
+//     ]
+// ];
+// const s4_modules = [
+//     [
+//         { text: 'Administration réseaux et scripting', callback_data: 'scripting' },
+//         { text: 'Business intelligence et ERP', callback_data: 'erp' },
+//     ],
+//     [
+//         { text: "Atelier des activités pratiques et projets", callback_data: 'activites_pratique' },
+//         { text: "Apprentissage profond", callback_data: 'apr_profond' }
+//     ],
+//     [
+//         { text: "Management et marketing", callback_data: 'marketing' },
+//         { text: "Communication", callback_data: 'communication' }
+//     ],
+//     [
+//         { text: "go back", callback_data: 'back' }
+//     ]
+// ];
+// const s5_modules = [
+//     [
+//         { text: 'Big data et NoSQL', callback_data: 'nosql' },
+//         { text: 'Atelier usine logiciel', callback_data: 'usine' },
+//     ],
+//     [
+//         { text: "Systèmes d’information moderne", callback_data: 'sys_moderne' },
+//         { text: "Ingénierie logiciel avancée", callback_data: 'gl_avnc' }
+//     ],
+//     [
+//         { text: "Interconnexion réseaux et sécurité informatique", callback_data: 'securite' },
+//         { text: "Éthique appliquée et éthique de l'IA", callback_data: 'ia' }
+//     ],
+//     [
+//         { text: "go back", callback_data: 'back' }
+//     ]
+// ];
 
 module.exports = {
     s1_modules,
     s2_modules,
-    s3_modules,
-    s4_modules,
-    s5_modules
+    // s3_modules,
+    // s4_modules,
+    // s5_modules
 }
