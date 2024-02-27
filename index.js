@@ -1,9 +1,6 @@
 const TelegramBot = require("node-telegram-bot-api");
 require("dotenv").config();
 const semesters = require("./keyboards/semesters");
-const modules = require("./keyboards/modules");
-const contents = require("./keyboards/contents");
-const courses = require("./keyboards/courses");
 const documentActions = require("./actions/documentActions");
 const menuActions = require("./actions/menuActions");
 
@@ -23,31 +20,39 @@ bot.on("message", (msg) => {
   }
 });
 
+// variable to store the latest message, to ensure that the message containing an inline keyboard is sent after sending a document.
+let latest_message;
+
 // Handle callback queries (when a button is pressed)
-bot.on("callback_query", (query) => {
+bot.on("callback_query", async (query) => {
   const chatId = query.message.chat.id;
+  const messageId = query.message.message_id;
   const chosenCommand = query.data;
+  const menuAction = menuActions[chosenCommand];
   console.log(`chosen command: ${chosenCommand}`);
 
-  const menuAction = menuActions[chosenCommand];
-  if (menuAction) {
-    if (menuAction.replyMarkup && menuAction.text) {
-      bot.editMessageText(menuAction.text, {
-        chat_id: chatId,
-        message_id: query.message.message_id,
-      });
-      bot.editMessageReplyMarkup(
-        { inline_keyboard: menuAction.replyMarkup.inline_keyboard },
-        { chat_id: chatId, message_id: query.message.message_id }
-      );
-    }
+  if (menuAction && menuAction.replyMarkup && menuAction.text) {
+    const keyboard = menuAction.replyMarkup.inline_keyboard;
+    latest_message = await bot.editMessageText(menuAction.text, {
+      chat_id: chatId,
+      message_id: messageId,
+      reply_markup: {
+        inline_keyboard: keyboard,
+      },
+    });
     return;
   }
 
   const documentAction = documentActions[chosenCommand];
   if (documentAction) {
     try {
-      bot.sendDocument(chatId, documentAction.filePath);
+      // TODO: verify if sendChatAction is useful
+      // bot.sendChatAction(chatId,'upload_document')
+      bot.deleteMessage(chatId, messageId);
+      await bot.sendDocument(chatId, documentAction.filePath);
+      bot.sendMessage(chatId, latest_message.text, {
+        reply_markup: latest_message.reply_markup,
+      });
       console.log("File sent successfully");
     } catch (error) {
       console.error("Error sending file:", error);
