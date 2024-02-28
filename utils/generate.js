@@ -59,7 +59,9 @@ function generateResources(
  * //     [
  * //       { text: "extra", callback_data: "Math_extra" }
  * //     ],
- * //     [{ text: "go back", callback_data: "back" }]
+ * //     [ { text: "🏠", callback_data: "home" },
+ * //       { text: "🔙", callback_data: "back" },
+ * //     ]
  * //   ]
  * // }
  */
@@ -91,7 +93,10 @@ function generateContent(
     content[1].push({ text: "extra", callback_data: `${courseName}_extra` });
   }
 
-  content.push([{ text: "go back", callback_data: "back" }]);
+  content.push([
+    { text: "🏠", callback_data: "home" },
+    { text: "🔙", callback_data: "back" },
+  ]);
   return { [`${courseName}_content`]: content };
 }
 
@@ -117,7 +122,9 @@ function generateContent(
  * //     [
  * //       { text: "chapter05", callback_data: "Math_ch05" }
  * //     ],
- * //     [{ text: "go back", callback_data: "back" }]
+ * //     [ { text: "🏠", callback_data: "home" },
+ * //       { text: "🔙", callback_data: "back" },
+ * //     ]
  * //   ]
  * // }
  */
@@ -140,7 +147,10 @@ function generateCourses(courseName, numChapters) {
     courses.push(row);
   }
 
-  courses.push([{ text: "go back", callback_data: "back" }]);
+  courses.push([
+    { text: "🏠", callback_data: "home" },
+    { text: "🔙", callback_data: "back" },
+  ]);
 
   return { [`${courseName}_courses`]: courses };
 }
@@ -163,7 +173,9 @@ function generateCourses(courseName, numChapters) {
  * //     [
  * //       { text: "tp03", callback_data: "Math_tp03" }
  * //     ],
- * //     [{ text: "go back", callback_data: "back" }]
+ * //     [ { text: "🏠", callback_data: "home" },
+ * //       { text: "🔙", callback_data: "back" },
+ * //     ]
  * //   ]
  * // }
  */
@@ -185,7 +197,10 @@ function generateTps(courseName, numTps) {
     tps.push(row);
   }
 
-  tps.push([{ text: "go back", callback_data: "back" }]);
+  tps.push([
+    { text: "🏠", callback_data: "home" },
+    { text: "🔙", callback_data: "back" },
+  ]);
 
   return { [`${courseName}_tps`]: tps };
 }

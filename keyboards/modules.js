@@ -1,39 +1,39 @@
 const s1_modules = [
-    [
-        { text: 'Ingenierie des bases de donnees avancees', callback_data: 'ibd' },
-        { text: 'Java', callback_data: 'java' },
-    ],
-    [
-        { text: "Automatique", callback_data: 'automatique' },
-        { text: "Python", callback_data: 'python' }
-    ],
-    [
-        { text: "Electronique", callback_data: 'electronique' },
-        { text: "C++", callback_data: 'cpp' }
-    ],
-    [
-        { text: "Dev d’applications web", callback_data: 'webdev' },
-    ],
-    [
-        { text: "go back", callback_data: 'back' }
-    ]
+  [
+    { text: "Ingenierie des bases de donnees avancees", callback_data: "ibd" },
+    { text: "Java", callback_data: "java" },
+  ],
+  [
+    { text: "Automatique", callback_data: "automatique" },
+    { text: "Python", callback_data: "python" },
+  ],
+  [
+    { text: "Electronique", callback_data: "electronique" },
+    { text: "C++", callback_data: "cpp" },
+  ],
+  [{ text: "Dev d’applications web", callback_data: "webdev" }],
+  [
+    { text: "🏠", callback_data: "home" },
+    { text: "🔙", callback_data: "back" },
+  ],
 ];
 const s2_modules = [
-    [
-        { text: 'Linux', callback_data: 'linux' },
-        { text: 'Conception et développement d’IHM', callback_data: 'ihm' },
-    ],
-    [
-        { text: "Recherche operationnelle", callback_data: 'opera' },
-        { text: "Réseaux informatique", callback_data: 'reseaux' }
-    ],
-    [
-        { text: "Statistiques pour l’ingénieur", callback_data: 'statistique' },
-        { text: "Génie logiciel et compilation", callback_data: 'gl' }
-    ],
-    [
-        { text: "go back", callback_data: 'back' }
-    ]
+  [
+    { text: "Linux", callback_data: "linux" },
+    { text: "Conception et développement d’IHM", callback_data: "ihm" },
+  ],
+  [
+    { text: "Recherche operationnelle", callback_data: "opera" },
+    { text: "Réseaux informatique", callback_data: "reseaux" },
+  ],
+  [
+    { text: "Statistiques pour l’ingénieur", callback_data: "statistique" },
+    { text: "Génie logiciel et compilation", callback_data: "gl" },
+  ],
+  [
+    { text: "🏠", callback_data: "home" },
+    { text: "🔙", callback_data: "back" },
+  ],
 ];
 // const s3_modules = [
 //     [
@@ -88,9 +88,9 @@ const s2_modules = [
 // ];
 
 module.exports = {
-    s1_modules,
-    s2_modules,
-    // s3_modules,
-    // s4_modules,
-    // s5_modules
-}
+  s1_modules,
+  s2_modules,
+  // s3_modules,
+  // s4_modules,
+  // s5_modules
+};
