@@ -1,7 +1,11 @@
+const contents = require("../keyboards/contents");
+const courses = require("../keyboards/courses");
+
 const keyboards = {
   tps: require("../keyboards/tps"),
   contents: require("../keyboards/contents"),
   courses: require("../keyboards/courses"),
+  modules: require("../keyboards/modules"),
 };
 
 /**
@@ -21,21 +25,32 @@ const keyboards = {
  * // }
  */
 function generateMenuAction(courseName, type) {
+  const { s1_modules, s2_modules } = keyboards.modules;
+  let modelName;
+  s1_modules.forEach((modules) => {
+    if (!modelName) {
+      modelName = modules.find((module) => {
+        return module.callback_data === courseName;
+      }).text;
+    }
+  });
+  // console.log(modelName);
+
   const typeMappings = {
     course: {
       property: courseName + "_courses",
       keyboard: keyboards.courses[`${courseName}_courses`],
-      text: "courses",
+      text: `📍 <i>${modelName} > cours</i> :`,
     },
     tp: {
       property: courseName + "_tps",
       keyboard: keyboards.tps[`${courseName}_tps`],
-      text: "tps",
+      text: `📍 <i>${modelName} > tps</i> :`,
     },
     content: {
       property: courseName,
       keyboard: keyboards.contents[`${courseName}_content`],
-      text: "content",
+      text: `📍 <i>${modelName}</i> :`,
     },
   };
 

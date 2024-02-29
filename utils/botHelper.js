@@ -1,5 +1,5 @@
 const semesters = require("../keyboards/semesters");
-
+const send_keyboard_after_sending_doc = false;
 /**
  * Edits a message with the provided menu action.
  * @param {object} bot - The bot instance.
@@ -14,6 +14,7 @@ async function editMessage(bot, query, menuAction) {
     const keyboard = menuAction.replyMarkup.inline_keyboard;
     const text = menuAction.text;
     return await bot.editMessageText(text, {
+      parse_mode: "HTML",
       chat_id: chatId,
       message_id: messageId,
       reply_markup: {
@@ -30,20 +31,27 @@ async function editMessage(bot, query, menuAction) {
  * @param {object} bot - The bot instance.
  * @param {object} query - The query object.
  * @param {object} documentAction - The document action object.
- * @param {Array} messageHistory - Array containing message history.
+ * @param {Array} messageHistory - Map containing message history.
  */
-async function sendDocument(bot, query, documentAction, messageHistory) {
+async function sendDocument(bot, query, documentAction, messageHistoryMap) {
   try {
     const chatId = query.message.chat.id;
     const messageId = query.message.message_id;
     bot.sendChatAction(chatId, "upload_document");
-    await bot.sendDocument(chatId, documentAction.filePath);
-    if (messageHistory.length) {
-      const latest_message = messageHistory[messageHistory.length - 1];
-      await bot.sendMessage(chatId, latest_message.text, {
-        reply_markup: latest_message.reply_markup,
+    if (send_keyboard_after_sending_doc) {
+      await bot.sendDocument(chatId, documentAction.filePath);
+      const sentMessage = await bot.sendMessage(chatId, query.message.text, {
+        reply_markup: query.message.reply_markup,
       });
       bot.deleteMessage(chatId, messageId);
+      const messageHistory = messageHistoryMap.get(messageId);
+      messageHistory?.forEach((message) => {
+        message.message_id = sentMessage.message_id;
+      });
+      messageHistoryMap.delete(messageId);
+      messageHistoryMap.set(sentMessage.message_id, messageHistory);
+    } else {
+      await bot.sendDocument(chatId, documentAction.filePath);
     }
     console.log("File sent successfully");
   } catch (error) {
