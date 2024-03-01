@@ -3,14 +3,14 @@ const { generateMenuAction } = require("../utils/generateMenu");
 
 const menuActions = {
   s1: {
-    text: "📍 <i>semestrs > modules</i> :",
+    text: "📍 <i>semestr 1 > modules</i> :",
     replyMarkup: {
       inline_keyboard: modules.s1_modules,
     },
   },
 
   s2: {
-    text: "📍 <i>semestrs > modules</i> :",
+    text: "📍 <i>semestr 2 > modules</i> :",
     replyMarkup: {
       inline_keyboard: modules.s2_modules,
     },

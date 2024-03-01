@@ -7,6 +7,7 @@ const {
   goBack,
   editMessage,
   sendDocument,
+  sendModules,
 } = require("./utils/botHelper");
 
 const token = process.env.BOT_TOKEN || "bot token";
@@ -23,6 +24,13 @@ bot.on("message", async (msg) => {
     const sentMessage = await sendSemesters(bot, msg);
     const messageId = sentMessage.message_id;
     messageHistoryMap.set(messageId, [sentMessage]);
+  }
+  //if the user request the menu of modules for a semester (/s1 or /s2)
+  if (/^\/s[1-2]$/.test(messageText)) {
+    // Send the menu of modules
+    const sentMessage = await sendModules(bot, msg);
+    //  const messageId = sentMessage.message_id;
+    //  messageHistoryMap.set(messageId, [sentMessage]);
   }
 });
 

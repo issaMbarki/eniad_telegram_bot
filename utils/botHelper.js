@@ -1,4 +1,5 @@
 const semesters = require("../keyboards/semesters");
+const modules = require("../keyboards/modules");
 const send_keyboard_after_sending_doc = false;
 /**
  * Edits a message with the provided menu action.
@@ -95,15 +96,27 @@ async function sendSemesters(bot, query, fromHomeButton) {
  * @param {number} chatId - The chat id.
  * @returns {Promise<object>} A promise representing the sent message.
  */
-async function sendModules(bot, chatId) {
-  // the menu of semesters
+async function sendModules(bot, msg) {
+  const chatId = msg.chat.id;
+  const requested_semester = msg.text?.slice(1);
+  const semester_number = msg.text?.slice(-1);
+  const modules_menu = modules[`${requested_semester}_modules`];
+  if (!modules_menu) {
+    return;
+  }
+  // the menu of modules
   const replyMarkup = {
-    inline_keyboard: semesters,
+    inline_keyboard: modules_menu,
   };
   try {
-    return await bot.sendMessage(chatId, "Please choose a semester:", {
-      reply_markup: replyMarkup,
-    });
+    return await bot.sendMessage(
+      chatId,
+      `📍 <i>semestr ${semester_number} > modules</i> :`,
+      {
+        reply_markup: replyMarkup,
+        parse_mode: "HTML",
+      }
+    );
   } catch (error) {
     console.log(error);
   }
@@ -134,4 +147,5 @@ module.exports = {
   sendSemesters,
   goBack,
   sendDocument,
+  sendModules,
 };
