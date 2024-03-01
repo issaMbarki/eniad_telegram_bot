@@ -14,7 +14,7 @@ const s1_modules = [
   [{ text: "Dev d’applications web", callback_data: "webdev" }],
   [
     { text: "🏠", callback_data: "home" },
-    { text: "🔙", callback_data: "back" },
+    { text: "🔙", callback_data: "home" },
   ],
 ];
 const s2_modules = [
@@ -32,7 +32,7 @@ const s2_modules = [
   ],
   [
     { text: "🏠", callback_data: "home" },
-    { text: "🔙", callback_data: "back" },
+    { text: "🔙", callback_data: "home" },
   ],
 ];
 // const s3_modules = [

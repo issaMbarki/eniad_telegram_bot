@@ -93,7 +93,7 @@ async function sendSemesters(bot, query, fromHomeButton) {
 /**
  * Sends modules menu to the user.
  * @param {object} bot - The bot instance.
- * @param {number} chatId - The chat id.
+ * @param {object} msg - The message object received from the user.
  * @returns {Promise<object>} A promise representing the sent message.
  */
 async function sendModules(bot, msg) {
@@ -142,10 +142,36 @@ async function goBack(bot, prev_message) {
   }
 }
 
+/**
+ * Sends information about the bot to the user.
+ * @param {object} bot - The bot instance.
+ * @param {object} msg - The message object received from the user.
+ * @returns {Promise} - A Promise that resolves when the message is sent successfully.
+ */
+async function sendInfo(bot, msg) {
+  const chatId = msg.chat.id;
+  const infoMessage = `
+  <b>🤖 Ce bot est conçu pour aider les étudiants de l'ENIADB à accéder facilement au contenu des cours universitaires.</b>
+Utilisez le menu pour accéder aux différents contenus :<i>
+  - Cours
+  - Travaux Pratiques
+  - Travaux Dirigés
+  - Corrections des Travaux Pratiques (si disponibles)
+  - Corrections des Travaux Dirigés (si disponibles)</i>
+  Developed by ${process.env.DEVELOPER_USERNAME}
+  `;
+  try {
+    return await bot.sendMessage(chatId, infoMessage, { parse_mode: "HTML" });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 module.exports = {
   editMessage,
   sendSemesters,
   goBack,
   sendDocument,
   sendModules,
+  sendInfo,
 };

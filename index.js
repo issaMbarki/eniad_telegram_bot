@@ -8,6 +8,7 @@ const {
   editMessage,
   sendDocument,
   sendModules,
+  sendInfo,
 } = require("./utils/botHelper");
 
 const token = process.env.BOT_TOKEN || "bot token";
@@ -29,8 +30,13 @@ bot.on("message", async (msg) => {
   if (/^\/s[1-2]$/.test(messageText)) {
     // Send the menu of modules
     const sentMessage = await sendModules(bot, msg);
-    //  const messageId = sentMessage.message_id;
-    //  messageHistoryMap.set(messageId, [sentMessage]);
+    const messageId = sentMessage.message_id;
+    messageHistoryMap.set(messageId, [sentMessage]);
+    return;
+  }
+  if (messageText === "/info") {
+    await sendInfo(bot, msg);
+    return;
   }
 });
 
