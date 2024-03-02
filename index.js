@@ -79,5 +79,9 @@ bot.on("callback_query", async (query) => {
   const documentAction = documentActions[chosenCommand];
   if (documentAction) {
     await sendDocument(bot, query, documentAction, messageHistoryMap);
+    return;
+  }
+  if (!documentAction && !menuAction) {
+    bot.answerCallbackQuery(query.id, { text: "Aucun contenu disponible pour le moment." });
   }
 });
