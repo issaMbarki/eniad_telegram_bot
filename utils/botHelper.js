@@ -54,6 +54,7 @@ async function sendDocument(bot, query, documentAction, messageHistoryMap) {
     } else {
       await bot.sendDocument(chatId, documentAction.filePath);
     }
+    bot.answerCallbackQuery(query.id);
     console.log("File sent successfully");
   } catch (error) {
     console.error("Error sending file:", error);
