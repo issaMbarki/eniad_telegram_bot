@@ -50,7 +50,10 @@ bot.on("callback_query", async (query) => {
   console.log(`chosen command: ${chosenCommand}`);
 
   // go home functionality (same as /start command)
-  if (chosenCommand === "home") {
+  if (
+    chosenCommand === "home" ||
+    (chosenCommand === "back" && !messageHistory)
+  ) {
     const sentMessage = await sendSemesters(bot, query, true);
     messageHistoryMap.set(messageId, [sentMessage]);
     return;
