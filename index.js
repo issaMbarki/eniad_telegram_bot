@@ -82,6 +82,8 @@ bot.on("callback_query", async (query) => {
     return;
   }
   if (!documentAction && !menuAction) {
-    bot.answerCallbackQuery(query.id, { text: "Aucun contenu disponible pour le moment." });
+    bot.answerCallbackQuery(query.id, {
+      text: "Aucun contenu disponible pour le moment.",
+    });
   }
 });
