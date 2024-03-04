@@ -1,6 +1,6 @@
 const s1_modules = [
   [
-    { text: "Ingenierie des bases de donnees avancees", callback_data: "ibd" },
+    { text: "Ingenierie des bases de donnees", callback_data: "ibd" },
     { text: "Java", callback_data: "java" },
   ],
   [

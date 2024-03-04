@@ -73,7 +73,7 @@ function generateContent(
 
   if (courses) {
     content[0].push({
-      text: "courses",
+      text: "cours",
       callback_data: `${courseName}_courses`,
     });
   }
@@ -84,7 +84,7 @@ function generateContent(
 
   if (tps_corr) {
     content[1].push({
-      text: "Tps's correction",
+      text: "tp (correction)",
       callback_data: `${courseName}_corr`,
     });
   }
@@ -132,7 +132,7 @@ function generateCourses(courseName, numChapters) {
   const chapters = [];
   for (let i = 1; i <= numChapters; i++) {
     chapters.push({
-      text: `chapter${i}`,
+      text: `chapitre${i}`,
       callback_data: `${courseName}_ch${i.toString().padStart(2, "0")}`,
     });
   }

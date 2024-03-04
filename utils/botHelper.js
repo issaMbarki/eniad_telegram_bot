@@ -69,7 +69,7 @@ async function sendDocument(bot, query, documentAction, messageHistoryMap) {
  * @returns {Promise<object>} A promise representing the sent message.
  */
 async function sendSemesters(bot, query, fromHomeButton) {
-  const text = "Please choose a semester:";
+  const text = "Veuillez choisir un semestre :";
   // the menu of semesters
   const replyMarkup = {
     inline_keyboard: semesters,
@@ -112,7 +112,7 @@ async function sendModules(bot, msg) {
   try {
     return await bot.sendMessage(
       chatId,
-      `📍 <i>semestr ${semester_number} > modules</i> :`,
+      `📍 <i>semestre ${semester_number} > modules</i> :`,
       {
         reply_markup: replyMarkup,
         parse_mode: "HTML",
