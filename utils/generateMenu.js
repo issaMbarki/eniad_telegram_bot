@@ -11,7 +11,7 @@ const keyboards = {
 /**
  * Generates a menu action for a given course and type.
  * @param {string} courseName - The name of the course.
- * @param {string} type - The type of action: course, tp, content, tp_corr...
+ * @param {string} type - The type of action: course, tp, td, content, tp_corr...
  * @returns {Object} - An object containing the generated menu action.
  * @example
  * // Example:
@@ -26,12 +26,15 @@ const keyboards = {
  */
 function generateMenuAction(courseName, type) {
   const { s1_modules, s2_modules } = keyboards.modules;
+  const allModules = [...s1_modules, ...s2_modules];
+  
   let modelName;
-  s1_modules.forEach((modules) => {
+  //find the module name
+  allModules.forEach((modules) => {
     if (!modelName) {
       modelName = modules.find((module) => {
         return module.callback_data === courseName;
-      }).text;
+      })?.text;
     }
   });
   // console.log(modelName);
