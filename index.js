@@ -13,7 +13,6 @@ const {
 
 const token = process.env.BOT_TOKEN || "bot token";
 const bot = new TelegramBot(token, { polling: true });
-//test
 // Holds the history of messages for implementing 'go back' functionality
 const messageHistoryMap = new Map();
 
