@@ -1,3 +1,4 @@
+const fs = require("fs");
 const semesters = require("../keyboards/semesters");
 const modules = require("../keyboards/modules");
 const send_keyboard_after_sending_doc = false;
@@ -168,6 +169,25 @@ Utilisez le menu pour accéder aux différents contenus :<i>
   }
 }
 
+/**
+ * Saves a file sent by the bot admin.
+ * @param {object} bot - The bot instance.
+ * @param {object} msg - The message object containing the file.
+ */
+async function saveFile(bot, msg) {
+  try {
+    const fileName = msg?.caption ?? msg.document.file_name;
+    const fileId = msg.document.file_id;
+    const file = await bot.getFile(fileId);
+    const downloadUrl = `https://api.telegram.org/file/bot${process.env.BOT_TOKEN}/${file.file_path}`;
+    const arrayBuffer = await (await fetch(downloadUrl)).arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer); // Convert ArrayBuffer to Buffer
+    fs.writeFileSync(fileName, buffer);
+  } catch (error) {
+    console.error("Error saving file:", error);
+  }
+}
+
 module.exports = {
   editMessage,
   sendSemesters,
@@ -175,4 +195,5 @@ module.exports = {
   sendDocument,
   sendModules,
   sendInfo,
+  saveFile,
 };

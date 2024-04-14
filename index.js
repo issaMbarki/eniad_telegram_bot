@@ -9,6 +9,7 @@ const {
   sendDocument,
   sendModules,
   sendInfo,
+  saveFile,
 } = require("./utils/botHelper");
 
 const token = process.env.BOT_TOKEN || "bot token";
@@ -18,12 +19,13 @@ const messageHistoryMap = new Map();
 
 bot.on("message", async (msg) => {
   const messageText = msg.text;
-
+  const userId = msg.from.id;
   if (messageText === "/start") {
     // Send the menu of semesters
     const sentMessage = await sendSemesters(bot, msg);
     const messageId = sentMessage.message_id;
     messageHistoryMap.set(messageId, [sentMessage]);
+    return;
   }
   //if the user request the menu of modules for a semester (/s1 or /s2)
   if (/^\/s[1-2]$/.test(messageText)) {
@@ -36,6 +38,11 @@ bot.on("message", async (msg) => {
   if (messageText === "/info") {
     await sendInfo(bot, msg);
     return;
+  }
+  if (process.env.ADMIN_ID == userId) {
+    if (msg.document) {
+      saveFile(bot, msg);
+    }
   }
 });
 
