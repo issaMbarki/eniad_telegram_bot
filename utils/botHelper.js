@@ -39,7 +39,6 @@ async function sendDocument(bot, query, documentAction, messageHistoryMap) {
   try {
     const chatId = query.message.chat.id;
     const messageId = query.message.message_id;
-    bot.sendChatAction(chatId, "upload_document");
     if (send_keyboard_after_sending_doc) {
       await bot.sendDocument(chatId, documentAction.filePath);
       const sentMessage = await bot.sendMessage(chatId, query.message.text, {
@@ -58,7 +57,10 @@ async function sendDocument(bot, query, documentAction, messageHistoryMap) {
     bot.answerCallbackQuery(query.id);
     console.log("File sent successfully");
   } catch (error) {
-    console.error("Error sending file:", error);
+    bot.answerCallbackQuery(query.id, {
+      text: "fichier pas disponible pour le moment.",
+    });
+    console.error("Error sending file");
   }
 }
 

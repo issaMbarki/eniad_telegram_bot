@@ -1,5 +1,5 @@
 const { generateTps } = require("../utils/generate");
 const tps = {
-  ...generateTps("ibd", 3),
+  ...generateTps("ibd", 4),
 };
 module.exports = tps;

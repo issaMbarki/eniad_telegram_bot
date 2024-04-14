@@ -1,8 +1,8 @@
 const { generateResources } = require("../utils/generate");
 const documentActions = {
   // database content
-  ...generateResources("ibd", 5, "ch", "courses", "txt"),
-  ...generateResources("ibd", 3, "tp", "tps", "txt"),
+  ...generateResources("ibd", 5, "ch", "txt"),
+  ...generateResources("ibd", 4, "tp", "txt"),
 
   // // java content
   // ...generateResources("java", 4, "ch", "txt"),

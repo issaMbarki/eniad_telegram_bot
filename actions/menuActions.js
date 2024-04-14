@@ -18,7 +18,7 @@ const menuActions = {
 
   ...generateMenuAction("ibd", "content"),
   ...generateMenuAction("ibd", "course"),
-  // ...generateMenuAction("ibd", "tp"),
+  ...generateMenuAction("ibd", "tp"),
   //...
 };
 module.exports = menuActions;

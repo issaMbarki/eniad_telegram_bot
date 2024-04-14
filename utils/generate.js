@@ -5,8 +5,6 @@ const resourcesPath = "./resources/";
  * @param {string} courseName - The name of the course.
  * @param {number} numResources - The number of resources to generate.
  * @param {string} type - The type of resource: ch, tp, tp_corr ...
- * @param {string} folderName - The name of the folder containing the resources. This folder
- *                              must exist inside the 'resources' folder.
  * @param {string} extension - The file extension (default is 'pdf').
  * @returns {Object} - An object containing the generated resources.
  * @example
@@ -14,16 +12,15 @@ const resourcesPath = "./resources/";
  * generateResources("Math", 3, 'ch', 'courses', 'pdf');
  * // Output:
  * // {
- * //   Math_ch01: { filePath: "./resources/courses/Math_ch01.pdf" },
- * //   Math_ch02: { filePath: "./resources/courses/Math_ch02.pdf" },
- * //   Math_ch03: { filePath: "./resources/courses/Math_ch03.pdf" }
+ * //   Math_ch01: { filePath: "./resources/Math/Math_ch01.pdf" },
+ * //   Math_ch02: { filePath: "./resources/Math/Math_ch02.pdf" },
+ * //   Math_ch03: { filePath: "./resources/Math/Math_ch03.pdf" }
  * // }
  */
 function generateResources(
   courseName,
   numResources,
   type,
-  folderName,
   extension = "pdf"
 ) {
   const resources = {};
@@ -31,7 +28,7 @@ function generateResources(
     const resourceName = `${courseName}_${type}${i
       .toString()
       .padStart(2, "0")}`;
-    const filePath = `${resourcesPath}${folderName}/${resourceName}.${extension}`;
+    const filePath = `${resourcesPath}${courseName}/${resourceName}.${extension}`;
     resources[resourceName] = { filePath };
   }
   return resources;
