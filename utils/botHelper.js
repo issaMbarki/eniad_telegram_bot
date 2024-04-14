@@ -159,7 +159,7 @@ Utilisez le menu pour accéder aux différents contenus :<i>
   - Travaux Dirigés
   - Corrections des Travaux Pratiques (si disponibles)
   - Corrections des Travaux Dirigés (si disponibles)</i>
-  Developed by ${process.env.DEVELOPER_USERNAME}
+  Developed by ${process.env.ADMIN_USERNAME}
   `;
   try {
     return await bot.sendMessage(chatId, infoMessage, { parse_mode: "HTML" });
