@@ -1,10 +1,12 @@
+const TelegramBot = require("node-telegram-bot-api");
 const fs = require("fs");
+const path = require("path");
 const semesters = require("../keyboards/semesters");
 const modules = require("../keyboards/modules");
 const send_keyboard_after_sending_doc = false;
 /**
  * Edits a message with the provided menu action.
- * @param {object} bot - The bot instance.
+ * @param {TelegramBot} bot - The bot instance.
  * @param {object} query - The query object.
  * @param {object} menuAction - The menu action object.
  * @returns {Promise<object>} A promise representing the edited message.
@@ -30,7 +32,7 @@ async function editMessage(bot, query, menuAction) {
 
 /**
  * Sends a document with the provided document action.
- * @param {object} bot - The bot instance.
+ * @param {TelegramBot} bot - The bot instance.
  * @param {object} query - The query object.
  * @param {object} documentAction - The document action object.
  * @param {Array} messageHistory - Map containing message history.
@@ -66,7 +68,7 @@ async function sendDocument(bot, query, documentAction, messageHistoryMap) {
 
 /**
  * Sends semesters menu to the user.
- * @param {object} bot - The bot instance.
+ * @param {TelegramBot} bot - The bot instance.
  * @param {object} query - The query object.
  * @param {boolean} fromHomeButton - Indicates if the user navigated from the home button.
  * @returns {Promise<object>} A promise representing the sent message.
@@ -96,7 +98,7 @@ async function sendSemesters(bot, query, fromHomeButton) {
 
 /**
  * Sends modules menu to the user.
- * @param {object} bot - The bot instance.
+ * @param {TelegramBot} bot - The bot instance.
  * @param {object} msg - The message object received from the user.
  * @returns {Promise<object>} A promise representing the sent message.
  */
@@ -128,7 +130,7 @@ async function sendModules(bot, msg) {
 
 /**
  * Sends the user back to the previous message.
- * @param {object} bot - The bot instance.
+ * @param {TelegramBot} bot - The bot instance.
  * @param {object} prev_message - The previous message object.
  * @returns {Promise<object>} A promise representing the sent message.
  */
@@ -148,7 +150,7 @@ async function goBack(bot, prev_message) {
 
 /**
  * Sends information about the bot to the user.
- * @param {object} bot - The bot instance.
+ * @param {TelegramBot} bot - The bot instance.
  * @param {object} msg - The message object received from the user.
  * @returns {Promise} - A Promise that resolves when the message is sent successfully.
  */
@@ -173,17 +175,22 @@ Utilisez le menu pour accéder aux différents contenus :<i>
 
 /**
  * Saves a file sent by the bot admin.
- * @param {object} bot - The bot instance.
+ * @param {TelegramBot} bot - The bot instance.
  * @param {object} msg - The message object containing the file.
  */
 async function saveFile(bot, msg) {
   try {
-    const fileName = msg?.caption ?? msg.document.file_name;
+    let fileName = msg.caption ?? msg.document.file_name;
+    fileName = path.join("./resources", fileName);
     const fileId = msg.document.file_id;
     const file = await bot.getFile(fileId);
     const downloadUrl = `https://api.telegram.org/file/bot${process.env.BOT_TOKEN}/${file.file_path}`;
     const arrayBuffer = await (await fetch(downloadUrl)).arrayBuffer();
     const buffer = Buffer.from(arrayBuffer); // Convert ArrayBuffer to Buffer
+    const dir = path.dirname(fileName);
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
     fs.writeFileSync(fileName, buffer);
   } catch (error) {
     console.error("Error saving file:", error);
