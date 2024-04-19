@@ -1,8 +1,8 @@
-const TelegramBot = require("node-telegram-bot-api");
 require("dotenv").config();
 const documentActions = require("./actions/documentActions");
 const menuActions = require("./actions/menuActions");
 const {
+  TelegramBot,
   sendSemesters,
   goBack,
   editMessage,

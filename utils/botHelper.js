@@ -198,6 +198,7 @@ async function saveFile(bot, msg) {
 }
 
 module.exports = {
+  TelegramBot,
   editMessage,
   sendSemesters,
   goBack,
