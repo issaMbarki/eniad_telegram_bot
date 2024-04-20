@@ -224,11 +224,11 @@ function generateTps(courseName, numTps) {
  * // {
  * //   Math_tps_corr: [
  * //     [
- * //       { text: "tp1", callback_data: "Math_tp01_corr" },
- * //       { text: "tp2", callback_data: "Math_tp02_corr" }
+ * //       { text: "tp1", callback_data: "Math_tp_corr01" },
+ * //       { text: "tp2", callback_data: "Math_tp_corr02" }
  * //     ],
  * //     [
- * //       { text: "tp3", callback_data: "Math_tp03_corr" }
+ * //       { text: "tp3", callback_data: "Math_tp_corr03" }
  * //     ],
  * //     [ { text: "🏠", callback_data: "home" },
  * //       { text: "🔙", callback_data: "back" },
@@ -324,11 +324,11 @@ function generateTds(courseName, numTds) {
  * // {
  * //   Math_tds_corr: [
  * //     [
- * //       { text: "td1", callback_data: "Math_td01_corr" },
- * //       { text: "td2", callback_data: "Math_td02_corr" }
+ * //       { text: "td1", callback_data: "Math_td_corr01" },
+ * //       { text: "td2", callback_data: "Math_td_corr02" }
  * //     ],
  * //     [
- * //       { text: "td3", callback_data: "Math_td03_corr" }
+ * //       { text: "td3", callback_data: "Math_td_corr03" }
  * //     ],
  * //     [ { text: "🏠", callback_data: "home" },
  * //       { text: "🔙", callback_data: "back" },
