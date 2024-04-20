@@ -24,7 +24,7 @@ const keyboards = {
 function generateMenuAction(courseName, type) {
   const { s1_modules, s2_modules } = keyboards.modules;
   const allModules = [...s1_modules, ...s2_modules];
-  
+
   let modelName;
   //find the module name
   allModules.forEach((modules) => {
@@ -36,6 +36,11 @@ function generateMenuAction(courseName, type) {
   });
   //TODO: add tds and tds corrections
   const typeMappings = {
+    content: {
+      property: courseName,
+      keyboard: keyboards.contents[`${courseName}_content`],
+      text: `📍 <i>${modelName}</i> :`,
+    },
     course: {
       property: courseName + "_courses",
       keyboard: keyboards.courses[`${courseName}_courses`],
@@ -46,10 +51,20 @@ function generateMenuAction(courseName, type) {
       keyboard: keyboards.tps[`${courseName}_tps`],
       text: `📍 <i>${modelName} > tps</i> :`,
     },
-    content: {
-      property: courseName,
-      keyboard: keyboards.contents[`${courseName}_content`],
-      text: `📍 <i>${modelName}</i> :`,
+    tp_corr: {
+      property: courseName + "_tps_corr",
+      keyboard: keyboards.tps[`${courseName}_tps_corr`],
+      text: `📍 <i>${modelName} > tps (correction)</i> :`,
+    },
+    td: {
+      property: courseName + "_tds",
+      keyboard: keyboards.tps[`${courseName}_tds`],
+      text: `📍 <i>${modelName} > tds</i> :`,
+    },
+    td_corr: {
+      property: courseName + "_tds_corr",
+      keyboard: keyboards.tps[`${courseName}_tds_corr`],
+      text: `📍 <i>${modelName} > tds (correction)</i> :`,
     },
   };
 

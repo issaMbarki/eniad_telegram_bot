@@ -17,12 +17,7 @@ const resourcesPath = "./resources/";
  * //   Math_ch03: { filePath: "./resources/Math/Math_ch03.pdf" }
  * // }
  */
-function generateResources(
-  courseName,
-  numResources,
-  type,
-  extension = "pdf"
-) {
+function generateResources(courseName, numResources, type, extension = "pdf") {
   const resources = {};
   for (let i = 1; i <= numResources; i++) {
     const resourceName = `${courseName}_${type}${i
@@ -41,6 +36,8 @@ function generateResources(
  * @param {boolean} [options.courses=true] - Whether to include courses in content.
  * @param {boolean} [options.tps=true] - Whether to include TPs in content.
  * @param {boolean} [options.tps_corr] - Whether to include TP corrections in content.
+ * @param {boolean} [options.tds] - Whether to include TDs in content.
+ * @param {boolean} [options.tds_corr] - Whether to include TD corrections in content.
  * @param {boolean} [options.extra] - Whether to include extra content.
  * @returns {Object} - An object containing the generated content.
  * @example
@@ -62,10 +59,9 @@ function generateResources(
  * //   ]
  * // }
  */
-//TODO: add tds and tds corr
 function generateContent(
   courseName,
-  { courses = true, tps = true, tps_corr, extra } = {}
+  { courses = true, tps = true, tps_corr, tds, tds_corr, extra } = {}
 ) {
   const content = [[], []];
 
@@ -83,10 +79,18 @@ function generateContent(
   if (tps_corr) {
     content[1].push({
       text: "tp (correction)",
-      callback_data: `${courseName}_corr`,
+      callback_data: `${courseName}_tps_corr`,
     });
   }
-
+  if (tds) {
+    content[0].push({ text: "Tds", callback_data: `${courseName}_tds` });
+  }
+  if (tds_corr) {
+    content[1].push({
+      text: "td (correction)",
+      callback_data: `${courseName}_tds_corr`,
+    });
+  }
   if (extra) {
     content[1].push({ text: "extra", callback_data: `${courseName}_extra` });
   }
@@ -110,15 +114,15 @@ function generateContent(
  * // {
  * //   Math_courses: [
  * //     [
- * //       { text: "chapter01", callback_data: "Math_ch01" },
- * //       { text: "chapter02", callback_data: "Math_ch02" }
+ * //       { text: "chapitre1", callback_data: "Math_ch01" },
+ * //       { text: "chapitre2", callback_data: "Math_ch02" }
  * //     ],
  * //     [
- * //       { text: "chapter03", callback_data: "Math_ch03" },
- * //       { text: "chapter04", callback_data: "Math_ch04" }
+ * //       { text: "chapitre3", callback_data: "Math_ch03" },
+ * //       { text: "chapitre4", callback_data: "Math_ch04" }
  * //     ],
  * //     [
- * //       { text: "chapter05", callback_data: "Math_ch05" }
+ * //       { text: "chapitre5", callback_data: "Math_ch05" }
  * //     ],
  * //     [ { text: "🏠", callback_data: "home" },
  * //       { text: "🔙", callback_data: "back" },
@@ -165,11 +169,11 @@ function generateCourses(courseName, numChapters) {
  * // {
  * //   Math_tps: [
  * //     [
- * //       { text: "tp01", callback_data: "Math_tp01" },
- * //       { text: "tp02", callback_data: "Math_tp02" }
+ * //       { text: "tp1", callback_data: "Math_tp01" },
+ * //       { text: "tp2", callback_data: "Math_tp02" }
  * //     ],
  * //     [
- * //       { text: "tp03", callback_data: "Math_tp03" }
+ * //       { text: "tp3", callback_data: "Math_tp03" }
  * //     ],
  * //     [ { text: "🏠", callback_data: "home" },
  * //       { text: "🔙", callback_data: "back" },
@@ -201,6 +205,157 @@ function generateTps(courseName, numTps) {
   ]);
 
   return { [`${courseName}_tps`]: tps };
+}
+
+/**
+ * Generates TP corrections for a given course.
+ * @param {string} courseName - The name of the course.
+ * @param {number} numTps - The number of TP corrections to generate.
+ * @returns {Object} - An object containing the generated TP corrections.
+ * @example
+ * // Example:
+ *  generateTpCorrections("Math", 3);
+ * // Output:
+ * // {
+ * //   Math_tps_corr: [
+ * //     [
+ * //       { text: "tp1 (correction)", callback_data: "Math_tp01_corr" },
+ * //       { text: "tp2 (correction)", callback_data: "Math_tp02_corr" }
+ * //     ],
+ * //     [
+ * //       { text: "tp3 (correction)", callback_data: "Math_tp03_corr" }
+ * //     ],
+ * //     [ { text: "🏠", callback_data: "home" },
+ * //       { text: "🔙", callback_data: "back" },
+ * //     ]
+ * //   ]
+ * // }
+ */
+function generateTpCorrections(courseName, numTps) {
+  const tpCorrections = [];
+  for (let i = 1; i <= numTps; i++) {
+    tpCorrections.push({
+      text: `tp${i} (correction)`,
+      callback_data: `${courseName}_tp${i.toString().padStart(2, "0")}_corr`,
+    });
+  }
+  const tpsCorr = [];
+  for (let i = 0; i < tpCorrections.length; i += 2) {
+    const row = [];
+    row.push(tpCorrections[i]);
+    if (i + 1 < tpCorrections.length) {
+      row.push(tpCorrections[i + 1]);
+    }
+    tpsCorr.push(row);
+  }
+
+  tpsCorr.push([
+    { text: "🏠", callback_data: "home" },
+    { text: "🔙", callback_data: "back" },
+  ]);
+
+  return { [`${courseName}_tps_corr`]: tpsCorr };
+}
+
+
+/**
+ * Generates TDs (Travaux Dirigés ) for a given course.
+ * @param {string} courseName - The name of the course.
+ * @param {number} numTds - The number of TDs to generate.
+ * @returns {Object} - An object containing the generated TDs.
+ * @example
+ * // Example:
+ *  generateTds("Math", 3);
+ * // Output:
+ * // {
+ * //   Math_tps: [
+ * //     [
+ * //       { text: "td1", callback_data: "Math_td01" },
+ * //       { text: "td2", callback_data: "Math_td02" }
+ * //     ],
+ * //     [
+ * //       { text: "td3", callback_data: "Math_td03" }
+ * //     ],
+ * //     [ { text: "🏠", callback_data: "home" },
+ * //       { text: "🔙", callback_data: "back" },
+ * //     ]
+ * //   ]
+ * // }
+ */
+function generateTds(courseName, numTds) {
+  const td = [];
+  for (let i = 1; i <= numTds; i++) {
+    td.push({
+      text: `td${i}`,
+      callback_data: `${courseName}_td${i.toString().padStart(2, "0")}`,
+    });
+  }
+  const tds = [];
+  for (let i = 0; i < td.length; i += 2) {
+    const row = [];
+    row.push(td[i]);
+    if (i + 1 < td.length) {
+      row.push(td[i + 1]);
+    }
+    tds.push(row);
+  }
+
+  tds.push([
+    { text: "🏠", callback_data: "home" },
+    { text: "🔙", callback_data: "back" },
+  ]);
+
+  return { [`${courseName}_tds`]: tds };
+}
+
+/**
+ * Generates TD corrections for a given course.
+ * @param {string} courseName - The name of the course.
+ * @param {number} numTps - The number of TD corrections to generate.
+ * @returns {Object} - An object containing the generated TD corrections.
+ * @example
+ * // Example:
+ *  generateTdCorrections("Math", 3);
+ * // Output:
+ * // {
+ * //   Math_tds_corr: [
+ * //     [
+ * //       { text: "td1 (correction)", callback_data: "Math_td01_corr" },
+ * //       { text: "td2 (correction)", callback_data: "Math_td02_corr" }
+ * //     ],
+ * //     [
+ * //       { text: "td3 (correction)", callback_data: "Math_td03_corr" }
+ * //     ],
+ * //     [ { text: "🏠", callback_data: "home" },
+ * //       { text: "🔙", callback_data: "back" },
+ * //     ]
+ * //   ]
+ * // }
+ */
+function generateTdCorrections(courseName, numTps) {
+  const tdCorrections = [];
+  for (let i = 1; i <= numTps; i++) {
+    tdCorrections.push({
+      text: `td${i} (correction)`,
+      callback_data: `${courseName}_td${i.toString().padStart(2, "0")}_corr`,
+    });
+  }
+  const tdsCorr = [];
+  for (let i = 0; i < tdCorrections.length; i += 2) {
+    const row = [];
+    row.push(tdCorrections[i]);
+    if (i + 1 < tdCorrections.length) {
+      row.push(tdCorrections[i + 1]);
+    }
+    tdsCorr.push(row);
+  }
+
+  tdsCorr.push([
+    { text: "🏠", callback_data: "home" },
+    { text: "🔙", callback_data: "back" },
+  ]);
+
+  return { [`${courseName}_tds_corr`]: tdsCorr };
 }
 
 module.exports = {
