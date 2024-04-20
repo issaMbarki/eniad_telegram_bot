@@ -1,6 +1,3 @@
-const contents = require("../keyboards/contents");
-const courses = require("../keyboards/courses");
-
 const keyboards = {
   tps: require("../keyboards/tps"),
   contents: require("../keyboards/contents"),
@@ -37,8 +34,7 @@ function generateMenuAction(courseName, type) {
       })?.text;
     }
   });
-  // console.log(modelName);
-
+  //TODO: add tds and tds corrections
   const typeMappings = {
     course: {
       property: courseName + "_courses",
@@ -61,6 +57,9 @@ function generateMenuAction(courseName, type) {
     keyboard: undefined,
     text: undefined,
   };
+  if (!keyboard) {
+    return;
+  }
   let obj = {
     text: text,
     replyMarkup: {

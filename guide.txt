@@ -1,0 +1,27 @@
+Creating Chapters for the 'IBD' Module Example:
+
+To create two chapters (courses) for the 'IBD' module, follow these steps:
+
+Generating Content Keyboard:
+In the 'keyboards/content.js' file, generate the content keyboard by calling the 'generateContent' function and passing "ibd" as the argument.
+Example: generateContent("ibd")
+
+Generating Content Menu:
+In the 'actions/menuActions.js' file, generate the content menu by calling the 'generateMenuAction' function and passing "ibd" and "content" as arguments.
+Example: generateMenuAction("ibd", "content")
+
+Generating Courses Keyboard:
+In the 'keyboards/courses.js' file, generate the courses keyboard by calling the 'generateCourses' function and passing "ibd" and the number of courses (2) as arguments.
+Example: generateCourses("ibd", 2)
+
+Generating Courses Menu:
+In the 'actions/menuActions.js' file, generate the courses menu by calling the 'generateMenuAction' function and passing "ibd" and "course" as arguments.
+Example: generateMenuAction("ibd", "course")
+
+Generating Resources:
+In the 'actions/documentActions.js' file, generate the resources by calling the 'generateResources' function and passing "ibd", the number of chapters (2), the chapter prefix ("ch"), and the file format ("pdf") as arguments.
+Example: generateResources("ibd", 2, "ch", "pdf")
+
+Verify File Existence:
+Make sure that the generated files exist in the '/resources/ibd' directory. Specifically, ensure that the following two files are present: 'ibd_ch01.pdf' and 'ibd_ch02.pdf'.
+

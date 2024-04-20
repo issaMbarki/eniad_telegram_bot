@@ -62,6 +62,7 @@ function generateResources(
  * //   ]
  * // }
  */
+//TODO: add tds and tds corr
 function generateContent(
   courseName,
   { courses = true, tps = true, tps_corr, extra } = {}
