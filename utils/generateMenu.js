@@ -1,8 +1,11 @@
 const keyboards = {
-  tps: require("../keyboards/tps"),
+  modules: require("../keyboards/modules"),
   contents: require("../keyboards/contents"),
   courses: require("../keyboards/courses"),
-  modules: require("../keyboards/modules"),
+  tps: require("../keyboards/tps"),
+  tps_corr: require("../keyboards/tps_corr"),
+  tds: require("../keyboards/tds"),
+  tds_corr: require("../keyboards/tds_corr"),
 };
 
 /**
@@ -53,17 +56,17 @@ function generateMenuAction(courseName, type) {
     },
     tp_corr: {
       property: courseName + "_tps_corr",
-      keyboard: keyboards.tps[`${courseName}_tps_corr`],
+      keyboard: keyboards.tps_corr[`${courseName}_tps_corr`],
       text: `📍 <i>${modelName} > tps (correction)</i> :`,
     },
     td: {
       property: courseName + "_tds",
-      keyboard: keyboards.tps[`${courseName}_tds`],
+      keyboard: keyboards.tds[`${courseName}_tds`],
       text: `📍 <i>${modelName} > tds</i> :`,
     },
     td_corr: {
       property: courseName + "_tds_corr",
-      keyboard: keyboards.tps[`${courseName}_tds_corr`],
+      keyboard: keyboards.tds_corr[`${courseName}_tds_corr`],
       text: `📍 <i>${modelName} > tds (correction)</i> :`,
     },
   };

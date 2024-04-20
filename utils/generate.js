@@ -63,43 +63,48 @@ function generateContent(
   courseName,
   { courses = true, tps = true, tps_corr, tds, tds_corr, extra } = {}
 ) {
-  const content = [[], []];
+  const content = [];
 
   if (courses) {
-    content[0].push({
+    content.push({
       text: "cours",
       callback_data: `${courseName}_courses`,
     });
   }
 
   if (tps) {
-    content[0].push({ text: "Tps", callback_data: `${courseName}_tps` });
+    content.push({ text: "Tps", callback_data: `${courseName}_tps` });
   }
 
   if (tps_corr) {
-    content[1].push({
-      text: "tp (correction)",
+    content.push({
+      text: "Tps (correction)",
       callback_data: `${courseName}_tps_corr`,
     });
   }
   if (tds) {
-    content[0].push({ text: "Tds", callback_data: `${courseName}_tds` });
+    content.push({ text: "Tds", callback_data: `${courseName}_tds` });
   }
   if (tds_corr) {
-    content[1].push({
-      text: "td (correction)",
+    content.push({
+      text: "Tds (correction)",
       callback_data: `${courseName}_tds_corr`,
     });
   }
   if (extra) {
-    content[1].push({ text: "extra", callback_data: `${courseName}_extra` });
+    content.push({ text: "extra", callback_data: `${courseName}_extra` });
   }
+  const dividedContent = [];
+  const chunkSize = 2;
 
-  content.push([
+  for (let i = 0; i < content.length; i += chunkSize) {
+    dividedContent.push(content.slice(i, i + chunkSize));
+  }
+  dividedContent.push([
     { text: "🏠", callback_data: "home" },
     { text: "🔙", callback_data: "back" },
   ]);
-  return { [`${courseName}_content`]: content };
+  return { [`${courseName}_content`]: dividedContent };
 }
 
 /**
@@ -219,11 +224,11 @@ function generateTps(courseName, numTps) {
  * // {
  * //   Math_tps_corr: [
  * //     [
- * //       { text: "tp1 (correction)", callback_data: "Math_tp01_corr" },
- * //       { text: "tp2 (correction)", callback_data: "Math_tp02_corr" }
+ * //       { text: "tp1", callback_data: "Math_tp01_corr" },
+ * //       { text: "tp2", callback_data: "Math_tp02_corr" }
  * //     ],
  * //     [
- * //       { text: "tp3 (correction)", callback_data: "Math_tp03_corr" }
+ * //       { text: "tp3", callback_data: "Math_tp03_corr" }
  * //     ],
  * //     [ { text: "🏠", callback_data: "home" },
  * //       { text: "🔙", callback_data: "back" },
@@ -235,8 +240,8 @@ function generateTpCorrections(courseName, numTps) {
   const tpCorrections = [];
   for (let i = 1; i <= numTps; i++) {
     tpCorrections.push({
-      text: `tp${i} (correction)`,
-      callback_data: `${courseName}_tp${i.toString().padStart(2, "0")}_corr`,
+      text: `tp${i}`,
+      callback_data: `${courseName}_tp_corr${i.toString().padStart(2, "0")}`,
     });
   }
   const tpsCorr = [];
@@ -256,7 +261,6 @@ function generateTpCorrections(courseName, numTps) {
 
   return { [`${courseName}_tps_corr`]: tpsCorr };
 }
-
 
 /**
  * Generates TDs (Travaux Dirigés ) for a given course.
@@ -320,11 +324,11 @@ function generateTds(courseName, numTds) {
  * // {
  * //   Math_tds_corr: [
  * //     [
- * //       { text: "td1 (correction)", callback_data: "Math_td01_corr" },
- * //       { text: "td2 (correction)", callback_data: "Math_td02_corr" }
+ * //       { text: "td1", callback_data: "Math_td01_corr" },
+ * //       { text: "td2", callback_data: "Math_td02_corr" }
  * //     ],
  * //     [
- * //       { text: "td3 (correction)", callback_data: "Math_td03_corr" }
+ * //       { text: "td3", callback_data: "Math_td03_corr" }
  * //     ],
  * //     [ { text: "🏠", callback_data: "home" },
  * //       { text: "🔙", callback_data: "back" },
@@ -336,8 +340,8 @@ function generateTdCorrections(courseName, numTps) {
   const tdCorrections = [];
   for (let i = 1; i <= numTps; i++) {
     tdCorrections.push({
-      text: `td${i} (correction)`,
-      callback_data: `${courseName}_td${i.toString().padStart(2, "0")}_corr`,
+      text: `td${i}`,
+      callback_data: `${courseName}_td_corr${i.toString().padStart(2, "0")}`,
     });
   }
   const tdsCorr = [];
@@ -354,7 +358,6 @@ function generateTdCorrections(courseName, numTps) {
     { text: "🏠", callback_data: "home" },
     { text: "🔙", callback_data: "back" },
   ]);
-
   return { [`${courseName}_tds_corr`]: tdsCorr };
 }
 
@@ -363,4 +366,7 @@ module.exports = {
   generateContent,
   generateCourses,
   generateTps,
+  generateTpCorrections,
+  generateTds,
+  generateTdCorrections,
 };
