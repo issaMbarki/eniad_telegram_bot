@@ -136,9 +136,10 @@ async function sendModules(bot, msg) {
  */
 async function goBack(bot, prev_message) {
   try {
-    return await bot.editMessageText(prev_message.text, {
+    return await bot.editMessageText(`<i>${prev_message.text}</i>`, {
       chat_id: prev_message.chat.id,
       message_id: prev_message.message_id,
+      parse_mode: "HTML",
       reply_markup: {
         inline_keyboard: prev_message.reply_markup.inline_keyboard,
       },
@@ -164,7 +165,7 @@ Utilisez le menu pour accéder aux différents contenus :<i>
   - Travaux Dirigés
   - Corrections des Travaux Pratiques (si disponibles)
   - Corrections des Travaux Dirigés (si disponibles)</i>
-  Developed by ${process.env.ADMIN_USERNAME}
+  Developed by @${process.env.ADMIN_USERNAME}
   `;
   try {
     return await bot.sendMessage(chatId, infoMessage, { parse_mode: "HTML" });

@@ -39,6 +39,7 @@ bot.on("message", async (msg) => {
     await sendInfo(bot, msg);
     return;
   }
+  // Save the file sent by the admin to the server 
   if (process.env.ADMIN_ID == userId) {
     if (msg.document) {
       saveFile(bot, msg);
